@@ -10,6 +10,7 @@
   clock = new THREE.Clock(), // Used for anims, which run to a clock instead of frame rate 
   currentlyAnimating = false, // Used to check whether characters neck is being used in another anim
   raycaster = new THREE.Raycaster(); // Used to detect the click on our character
+  var myMusic;
 
   init();
 
@@ -29,7 +30,7 @@
     renderer.shadowMap.enabled = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(renderer.domElement);
-
+    
     // camera position add jidar modal display hogaa
     camera = new THREE.PerspectiveCamera(
     50,
@@ -38,8 +39,13 @@
     1000);
     camera.position.z = 30;
     camera.position.x = 0;
-    camera.position.y = -3;
-     
+    camera.position.y = -3; 
+
+// create a global audio source
+// load a sound and set it as the Audio object's buffer
+    // create a global audio source
+    // load a sound and set it as the Audio object's buffer
+    
     //color set for modal
      const stacy_mtl = new THREE.MeshPhongMaterial({
       color: "pink",
@@ -202,6 +208,9 @@
           data=xx.value;
         }
         })
+        myMusic= document.getElementById(data+"Audio");
+        myMusic.play();
+        console.log(myMusic.play());
         console.log(data);
     playModifierAnimation(idle, 0.25, possibleAnims[data], 0.25);
   }
@@ -216,6 +225,7 @@
       from.enabled = true;
       to.crossFadeTo(from, tSpeed, true);
       currentlyAnimating = false;
+      myMusic.pause(); 
     }, to._clip.duration * 1000 - (tSpeed + fSpeed) * 1000);
   }
 
